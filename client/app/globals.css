@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #FEFAE0;
+  --foreground: #171717;
+  --shadow-light: rgba(255, 255, 255, 0.5);
+  --shadow-dark: rgba(0, 0, 0, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --shadow-light: rgba(255, 255, 255, 0.2);
+    --shadow-dark: rgba(0, 0, 0, 0.7);
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+   transition-property: opacity, transform, filter, background;
+  transition-timing-function: ease-in-out;
+  transition-duration: 500ms;
+  /* font-family: Arial, Helvetica, sans-serif; */
+}
+.page-transition {
+  opacity: 0;
+  /* transform: translateX(1000px); */
+  /* filter: blur(12px); */
+}
+.page-transition2 {
+  opacity: 0;
+  /* transform: translateX(1000px); */
+  /* filter: blur(12px); */
+}
+
+.bord {
+  border: 1px solid var(--foreground);
+}
+
+.key {
+  font-size: 2.5rem; /* Slightly larger font */
+  line-height: 3rem; /* Adjusted for better spacing */
+  display: inline-block;
+  letter-spacing: -0.05rem; /* Subtle letter spacing */
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+  will-change: transform, color;
+  text-shadow: 1px 1px 2px var(--shadow-light), -1px -1px 2px var(--shadow-dark);
+}
+
+.key:hover {
+  cursor: pointer;
+  transform: scale(1.1) translateY(-5px); /* Add hover scaling for interactivity */
+  color: var(--foreground);
+}
+
+.key:nth-child(1) {
+  animation: smoothPress1 2s infinite ease-in-out;
+}
+
+.key:nth-child(2) {
+  animation: smoothPress2 2.5s infinite ease-in-out;
+}
+
+.key:nth-child(3) {
+  animation: smoothPress3 3s infinite ease-in-out;
+}
+
+.key:nth-child(4) {
+  animation: smoothPress4 2.8s infinite ease-in-out;
+}
+
+.key:nth-child(5) {
+  animation: smoothPress5 2.4s infinite ease-in-out;
+}
+
+.key:nth-child(6) {
+  animation: smoothPress6 3.2s infinite ease-in-out;
+}
+
+.key:nth-child(7) {
+  animation: smoothPress7 2.7s infinite ease-in-out;
+}
+
+.key:nth-child(8) {
+  animation: smoothPress8 3s infinite ease-in-out;
+}
+
+/* Smooth animations */
+@keyframes smoothPress1 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+@keyframes smoothPress2 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+@keyframes smoothPress3 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+@keyframes smoothPress4 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+@keyframes smoothPress5 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+@keyframes smoothPress6 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+@keyframes smoothPress7 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+@keyframes smoothPress8 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}

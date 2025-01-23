@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "rewrites": [{ "source": "/(.*)", "destination": "src" }],
+  "buildCommand": "",
+  "devCommand": "npx nodemon src/index.ts",
+  "installCommand": "yarn install"
+}
