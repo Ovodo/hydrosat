@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { signUp } from "@/actions/auth";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const Page = () => {
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -36,9 +36,11 @@ const page = () => {
       setLoading(false);
       toast.success("Sign-up Successful!");
       router.push("/signin");
-    } catch (error: any) {
+    } catch (error) {
       setLoading(false);
-      toast.error(error.message);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else toast.error("An unexpected Error Occured");
     }
   };
 
@@ -131,4 +133,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

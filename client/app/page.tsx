@@ -1,14 +1,13 @@
 import { signOut } from "@/actions/auth";
 import { getFeedbacks } from "@/actions/feedback";
 import FeedbackForm from "@/components/FeedbackForm";
-import { decrypt } from "@/lib/session";
-import SentimentFilter from "@/components/SentimentFilter";
 import Feedbacks from "@/components/Feedbacks";
+import { decrypt } from "@/lib/session";
 
 export default async function Home() {
-  const user: any = JSON.parse((await decrypt()) as string);
+  const user = JSON.parse(((await decrypt()) as string) ?? "");
   const isAdmin = user?.isAdmin;
-  const feedbackList: any[] = isAdmin ? await getFeedbacks() : [];
+  const feedbackList = isAdmin ? await getFeedbacks() : [];
 
   return (
     <div className='flex-1 relative flex flex-col py-12 px-4 sm:px-6 lg:px-8'>

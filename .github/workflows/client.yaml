@@ -1,0 +1,49 @@
+name: CI/CD for Client
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID_2: ${{ secrets.VERCEL_PROJECT_ID_2 }}
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # Test and Deploy Client
+  client:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      # Setup Node.js
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 18
+
+      # Install dependencies
+      - name: Install Dependencies
+        working-directory: ./client
+        run: npm install
+
+      # Run tests
+      - name: Run Tests
+        working-directory: ./client
+        run: npm run test
+
+      # Build Client
+      - name: Build Client
+        working-directory: ./client
+        run: npm run build
+
+      # Deploy Client to Vercel
+      - name: Deploy to Vercel
+        working-directory: ./client
+        run: |
+          npm install --global vercel@latest
+          vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+          vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}

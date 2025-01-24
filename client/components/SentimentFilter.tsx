@@ -1,5 +1,6 @@
 "use client";
 
+import { FeedbackType } from "@/types";
 import { ChangeEvent, useState } from "react";
 
 // Client-side component for filtering
@@ -7,8 +8,8 @@ export default function SentimentFilter({
   feedbackList,
   setFeedbackList,
 }: {
-  feedbackList: any[];
-  setFeedbackList: (e: any[]) => void;
+  feedbackList: FeedbackType[];
+  setFeedbackList: (e: FeedbackType[]) => void;
 }) {
   const [filter, setFilter] = useState("ALL");
 

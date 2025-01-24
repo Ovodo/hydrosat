@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Web3 from "web3";
-import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 const Navbar = () => {
@@ -17,32 +16,33 @@ const Navbar = () => {
   const login = async () => {
     const loading = toast.loading("Connecting");
     try {
-      await (window as any).ethereum.enable();
+      await window.ethereum.request({ method: "eth_requestAccounts" });
       if (web3) {
         const accounts = await web3.eth.getAccounts();
         setAddress(accounts[0]);
         toast.success("Connected", { id: loading });
       }
-    } catch (error: any) {
-      if (error.message === "User denied account authorization") {
-        console.log(error.message);
-        toast.error("Not Connected", { id: loading });
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message === "User denied account authorization") {
+          console.log(error.message);
+          toast.error("Not Connected", { id: loading });
 
-        // handle the case where the user denied the connection request
-      } else if (error.message === "MetaMask is not enabled") {
-        // handle the case where MetaMask is not available
-        console.log(error.message);
-        toast.error("Not Connected", { id: loading });
-      } else {
-        console.log(error.message);
-        toast.error("Not Connected", { id: loading });
-        // handle other errors
+          // handle the case where the user denied the connection request
+        } else if (error.message === "MetaMask is not enabled") {
+          // handle the case where MetaMask is not available
+          console.log(error.message);
+          toast.error("Not Connected", { id: loading });
+        } else {
+          toast.error("Not Connected");
+          // handle other errors
+        }
       }
     }
   };
 
   useEffect(() => {
-    const web3 = new Web3((window as any).ethereum);
+    const web3 = new Web3(window.ethereum);
     setWeb3(web3);
   }, []);
   return (

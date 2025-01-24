@@ -7,13 +7,11 @@ import toast from "react-hot-toast";
 import { PuffLoader } from "react-spinners";
 import { motion } from "framer-motion";
 import { signIn } from "@/actions/auth";
-import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   // Check if all fields are filled
   const isFormComplete = name.trim() && password.trim();
@@ -27,9 +25,13 @@ const Page = () => {
       setLoading(false);
       toast.success("Sign-in Successful!");
       window.location.href = "/";
-    } catch (error: any) {
+    } catch (error) {
       setLoading(false);
-      toast.error(error.message);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     }
   };
 
