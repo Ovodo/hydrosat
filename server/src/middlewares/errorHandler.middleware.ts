@@ -1,6 +1,6 @@
 /** @format */
 
-import { Logger } from "@/utils";
+import { Logger } from "../utils";
 import { Request, Response, NextFunction } from "express";
 
 export const errorHandlerMiddleware = (
@@ -9,13 +9,11 @@ export const errorHandlerMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  Logger.error(err);
+  // Logger.error(err);
 
-  res
-    .status(500)
-    .json({
-      type: "Internal Server Error!",
-      message: err.message,
-      code: err.code,
-    });
+  res.status(500).json({
+    type: "Internal Server Error!",
+    message: err.message,
+    code: err.code,
+  });
 };

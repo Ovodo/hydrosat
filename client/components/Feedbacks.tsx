@@ -4,7 +4,6 @@ import SentimentFilter from "./SentimentFilter";
 
 const Feedbacks = ({ feedbacks }: { feedbacks: any[] }) => {
   const [feedbackList, setFeedbackList] = useState(feedbacks);
-  console.log(feedbackList);
   return (
     <div className='flex flex-1 pb-4 flex-col'>
       <div className='flex justify-between items-center'>

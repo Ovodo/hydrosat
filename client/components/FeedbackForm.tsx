@@ -17,13 +17,12 @@ const FeedbackForm = () => {
     try {
       const response = await createFeedback({ text: feedback });
 
-      if (response == 201) {
+      if (response == 200) {
         setFeedback("");
         toast.success("Sent Successfully!!", { id: loading });
       }
     } catch (error: any) {
-      console.error("Error submitting feedback:", error);
-      toast.error(error.message, { id: loading });
+      toast.error(error.message);
     } finally {
       setIsSubmitting(false);
     }

@@ -1,6 +1,6 @@
 /** @format */
 
-import { authController } from "@/controllers";
+import { authController } from "../controllers";
 import { Router } from "express";
 
 export const authRouter = Router();

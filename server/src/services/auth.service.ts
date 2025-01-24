@@ -1,8 +1,8 @@
 /** @format */
 
-import { UserEntity } from "@/entities";
-import { AppDataSource } from "@/setup/datasource";
-import { CreateUserRequestType } from "@/types";
+import { UserEntity } from "../entities";
+import { AppDataSource } from "../setup/datasource";
+import { CreateUserRequestType } from "../types";
 
 export const createUser = async ({
   name,

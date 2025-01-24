@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { signIn } from "@/actions/auth";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const Page = () => {
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState(false);
@@ -23,13 +23,12 @@ const page = () => {
 
     setLoading(true); // Start loading
     try {
-      const res = await signIn({ name, password });
-      console.log(res);
-      setLoading(false); // Stop loading
+      await signIn({ name, password });
+      setLoading(false);
       toast.success("Sign-in Successful!");
       window.location.href = "/";
     } catch (error: any) {
-      setLoading(false); // Stop loading
+      setLoading(false);
       toast.error(error.message);
     }
   };
@@ -61,7 +60,7 @@ const page = () => {
             pointerEvents: isFormComplete ? "auto" : "none",
           }}
           type='submit'
-          disabled={loading}
+          disabled={!isFormComplete || loading}
           className='text-sm disabled:cursor-not-allowed active:scale-95 hover:rounded-lg transition-all w-[75%] bg-moss_green h-[55px] text-cornsilk flex items-center justify-center'
         >
           {loading ? <PuffLoader size={24} color='white' /> : "Login"}
@@ -110,4 +109,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

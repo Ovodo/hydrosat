@@ -14,6 +14,6 @@ export class UserEntity extends CoreEntity {
   @Column({ name: "hashed_password" })
   hashedPassword: string;
 
-  @Column({ type: "enum", enum: ["user", "admin"], default: "user" })
+  @Column({ type: "text", enum: ["user", "admin"], default: "user" })
   role: string;
 }

@@ -1,4 +1,4 @@
-import { clientIpValidator } from "valid-ip-scope";
+// import { clientIpValidator } from "valid-ip-scope";
 
 const LOCALHOST_IPS: readonly string[] = [
   "::1",
@@ -16,15 +16,16 @@ type IpValidationResult = {
  * @param ip - The IP address to validate
  * @returns IpValidationResult - Contains validation result and optional reason
  */
-export const validateIp = (ip: string): IpValidationResult => {
+export const validateIp = (ip: string): any => {
   if (!ip) return { isValid: false, reason: "IP is empty" };
 
   if (LOCALHOST_IPS.includes(ip)) {
     return { isValid: false, reason: "Localhost IP not allowed" };
   }
 
-  return {
-    isValid: clientIpValidator(ip),
-    reason: clientIpValidator(ip) ? undefined : "Invalid IP format",
-  };
+  // return {
+  //   isValid: clientIpValidator(ip),
+  //   reason: clientIpValidator(ip) ? undefined : "Invalid IP format",
+  // };
+  return {};
 };

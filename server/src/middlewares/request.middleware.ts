@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 
-import { Logger } from "@/utils";
-import { validateIp } from "@/utils/ipValidator";
-import { clientInspector } from "valid-ip-scope";
+import { Logger } from "../utils";
+import { validateIp } from "../utils/ipValidator";
+// import { clientInspector } from "valid-ip-scope";
 import "dotenv/config";
 
 const formatRequestData = (req: Request) => ({
@@ -24,10 +24,14 @@ export const routeMiddleware = async (
       return next();
     }
 
+    // Skip logging if running tests
+    if (process.env.NODE_ENV == "test") {
+      return next();
+    }
     const ipValidation = validateIp(req.ip);
-    const clientInfo = ipValidation.isValid
-      ? await clientInspector(req)
-      : { error: ipValidation.reason };
+    // const clientInfo = ipValidation.isValid
+    //   ? await clientInspector(req)
+    //   : { error: ipValidation.reason };
 
     Logger.group({
       title: "New Request",
@@ -41,7 +45,7 @@ export const routeMiddleware = async (
         },
         {
           description: "CLIENTINFO",
-          info: JSON.stringify(clientInfo, null, 2),
+          // info: JSON.stringify(clientInfo, null, 2),
         },
       ],
     });

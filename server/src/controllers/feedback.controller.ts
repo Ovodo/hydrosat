@@ -1,14 +1,11 @@
 /** @format */
-import { feedbackService, authService } from "@/services";
+import { feedbackService, authService } from "../services";
 import { Request, Response } from "express";
-import { errorHandlerWrapper } from "@/utils";
-import jwt from "jsonwebtoken";
+import { errorHandlerWrapper } from "../utils";
 
 // Middleware to check if user is admin
 const assertAdmin = async (req: Request, res: Response, next: Function) => {
-  const token = req.header("Authorization").replace("Bearer ", "");
-  const decoded = jwt.verify(token, process.env.JWT_SECRET) as any;
-  const user = await authService.getUser({ name: decoded.username });
+  const user = await authService.getUser({ name: req.body.user.name });
 
   if (!user || user.role !== "admin") {
     res.status(403).json({ message: "Admin access required" });
@@ -18,10 +15,7 @@ const assertAdmin = async (req: Request, res: Response, next: Function) => {
 };
 
 const createFeedbackHandler = async (req: Request, res: Response) => {
-  const { text } = req.body;
-  const token = req.header("Authorization").replace("Bearer ", "");
-  const decoded = jwt.verify(token, process.env.JWT_SECRET) as any;
-  const user = await authService.getUser({ name: decoded.username });
+  const { text, user } = req.body;
 
   if (!user) {
     res.status(401).json({ message: "User not found" });
@@ -54,26 +48,8 @@ const getFeedbackHandler = async (req: Request, res: Response) => {
   res.status(200).json(allFeedback);
 };
 
-// For users to get their own feedback
-const getUserFeedbackHandler = async (req: Request, res: Response) => {
-  const token = req.header("Authorization").replace("Bearer ", "");
-  const decoded = jwt.verify(token, process.env.JWT_SECRET) as any;
-  const user = await authService.getUser({ name: decoded.username });
-
-  if (!user) {
-    res.status(401).json({ message: "User not found" });
-    return;
-  }
-
-  const feedbackList = await feedbackService.getFeedback({
-    userUuid: user.uuid,
-  });
-  res.status(200).json(feedbackList);
-};
-
 export const createFeedback = errorHandlerWrapper(createFeedbackHandler);
 export const getFeedback = [
   assertAdmin,
   errorHandlerWrapper(getFeedbackHandler),
 ];
-export const getUserFeedback = errorHandlerWrapper(getUserFeedbackHandler);

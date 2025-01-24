@@ -1,14 +1,18 @@
 /** @format */
 
-import { authService } from "@/services";
+import { authService } from "../services";
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
-import { errorHandlerWrapper } from "@/utils";
+import { errorHandlerWrapper } from "../utils";
 
 const signUpHandler = async (req: Request, res: Response) => {
   const { name, password, role } = req.body;
+
+  if (!name || !password) {
+    res.status(400).json("Incomplete Credentials");
+  }
 
   const hashedPassword = await bcrypt.hash(password, 10);
 

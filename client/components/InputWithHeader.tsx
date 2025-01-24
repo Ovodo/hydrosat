@@ -23,9 +23,12 @@ const InputWithHeader = ({
   const [show, setShow] = useState<boolean>(false);
   return (
     <div className={`flex ${width} flex-col items-start`}>
-      <p className='mb-2 text-pakistan_green font-semibold'>{title}</p>
+      <label htmlFor={title} className='mb-2 text-pakistan_green font-semibold'>
+        {title}
+      </label>
       <div className='relative w-full flex items-center'>
         <input
+          id={title}
           required={required}
           placeholder={holder}
           type={!password ? "text" : show ? "text" : "password"}

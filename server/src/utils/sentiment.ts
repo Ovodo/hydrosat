@@ -1,6 +1,6 @@
 /** @format */
 import Sentiment from "sentiment";
-import { SentimentAnalysisResult } from "@/types";
+import { SentimentAnalysisResult } from "../types";
 
 export const analyzeSentiment = (text: string): SentimentAnalysisResult => {
   const sentiment = new Sentiment();

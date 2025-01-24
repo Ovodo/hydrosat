@@ -1,8 +1,8 @@
 /** @format */
-import { FeedbackEntity } from "@/entities";
-import { AppDataSource } from "@/setup/datasource";
-import { CreateFeedbackRequestType } from "@/types";
-import { analyzeSentiment } from "@/utils";
+import { FeedbackEntity } from "../entities";
+import { AppDataSource } from "../setup/datasource";
+import { CreateFeedbackRequestType } from "../types";
+import { analyzeSentiment } from "../utils";
 
 export const createFeedback = async ({
   text,
