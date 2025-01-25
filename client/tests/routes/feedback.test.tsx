@@ -21,7 +21,7 @@ describe("Feedback Form", () => {
     expect(
       screen.getByPlaceholderText("Share your thoughts about our product...")
     ).toBeInTheDocument();
-    expect(screen.getByText("Submit Feedback")).toBeInTheDocument();
+    expect(screen.getByText("Submit")).toBeInTheDocument();
   });
 
   test("validates feedback input", () => {
@@ -29,7 +29,7 @@ describe("Feedback Form", () => {
     const input = screen.getByPlaceholderText(
       "Share your thoughts about our product..."
     );
-    const submitButton = screen.getByText("Submit Feedback");
+    const submitButton = screen.getByText("Submit");
 
     // Test empty input
     act(() => {
@@ -47,14 +47,14 @@ describe("Feedback Form", () => {
 
   test("submits feedback successfully", async () => {
     // Mock successful feedback creation
-    (createFeedback as jest.Mock).mockResolvedValue(200);
+    (createFeedback as jest.Mock).mockResolvedValue(201);
 
     render(<FeedbackForm />);
 
     const input = screen.getByPlaceholderText(
       "Share your thoughts about our product..."
     );
-    const submitButton = screen.getByText("Submit Feedback");
+    const submitButton = screen.getByText("Submit");
 
     // Enter valid feedback
     act(() => {
@@ -83,7 +83,7 @@ describe("Feedback Form", () => {
     const input = screen.getByPlaceholderText(
       "Share your thoughts about our product..."
     );
-    const submitButton = screen.getByText("Submit Feedback");
+    const submitButton = screen.getByText("Submit");
 
     // Enter valid feedback
 

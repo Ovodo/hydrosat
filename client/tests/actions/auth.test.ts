@@ -18,7 +18,7 @@ describe("Auth Server Actions", () => {
     it("should successfully register a user", async () => {
       // Mock axios post response
       (axios.post as jest.Mock).mockResolvedValue({
-        data: { id: "1", username: "testuser" },
+        data: { id: "1", name: "testuser" },
       });
 
       const result = await signUp({
@@ -30,7 +30,7 @@ describe("Auth Server Actions", () => {
         "http://localhost:8000/api/auth/signup",
         { name: "testuser", password: "password123" }
       );
-      expect(result).toEqual({ id: "1", username: "testuser" });
+      expect(result).toEqual({ id: "1", name: "testuser" });
     });
 
     it("should throw an error for signup failure", async () => {
@@ -55,7 +55,7 @@ describe("Auth Server Actions", () => {
       (axios.post as jest.Mock).mockResolvedValue({
         data: {
           token: "test-token",
-          username: "testuser",
+          name: "testuser",
           isAdmin: false,
         },
       });
@@ -76,12 +76,12 @@ describe("Auth Server Actions", () => {
       expect(mockSet).toHaveBeenCalledWith(
         "user",
         JSON.stringify({
-          username: "testuser",
+          name: "testuser",
           isAdmin: false,
         })
       );
       expect(result).toEqual({
-        username: "testuser",
+        name: "testuser",
         isAdmin: false,
       });
     });

@@ -4,16 +4,17 @@ import { DataSource } from "typeorm";
 import { FeedbackEntity, UserEntity } from "../entities";
 import "dotenv/config";
 
-const options: any =
-  process.env.NODE_ENV === "production"
-    ? {
-        type: "postgres",
-        url: process.env.DATABASE_URL,
-        ssl: true,
-        synchronize: true,
+export const AppDataSource =
+  process.env.NODE_ENV === "test"
+    ? new DataSource({
+        type: "sqlite",
+        database: ":memory:",
         entities: [UserEntity, FeedbackEntity],
-      }
-    : {
+        synchronize: true,
+        logging: false,
+      })
+    : process.env.NODE_ENV === "development"
+    ? new DataSource({
         type: "postgres",
         host: process.env.DB_HOST,
         username: process.env.DB_USERNAME,
@@ -23,16 +24,6 @@ const options: any =
         entities: [UserEntity, FeedbackEntity],
         logging: false,
         synchronize: true,
-      };
-
-export const AppDataSource =
-  process.env.NODE_ENV === "test"
-    ? new DataSource({
-        type: "sqlite",
-        database: ":memory:",
-        entities: [UserEntity, FeedbackEntity],
-        synchronize: true,
-        logging: false,
       })
     : new DataSource({
         type: "postgres",

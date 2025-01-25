@@ -17,7 +17,7 @@ const FeedbackForm = () => {
     try {
       const response = await createFeedback({ text: feedback });
 
-      if (response == 200) {
+      if (response == 201) {
         setFeedback("");
         toast.success("Sent Successfully!!", { id: loading });
       }
@@ -51,17 +51,17 @@ const FeedbackForm = () => {
           className={`text-sm ${
             feedback.length >= 1000
               ? "text-red-500 animate-bounce"
-              : " text-pakistan_green"
+              : " text-pakistan_green dark:text-cornsilk"
           }`}
         >
           {feedback.length}/1000 characters
         </span>
         <button
           type='submit'
-          disabled={isSubmitting}
+          disabled={isSubmitting || feedback.length > 1000}
           className='bg-blue-500 text-cornsilk px-4 py-2 rounded-lg hover:bg-blue-600 disabled:opacity-50'
         >
-          {isSubmitting ? "Submitting..." : "Submit Feedback"}
+          {isSubmitting ? "Submitting..." : "Submit"}
         </button>
       </div>
     </form>

@@ -14,7 +14,7 @@ const setupServer = async () => {
   }
 
   try {
-    await backendSetup();
+    backendSetup();
     Logger.info(MESSAGES.SERVER_RUNNING);
   } catch (err) {
     Logger.error(err);

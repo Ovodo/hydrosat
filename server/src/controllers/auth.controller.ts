@@ -35,7 +35,7 @@ const signInHandler = async (req: Request, res: Response) => {
   const user = await authService.getUser({ name });
 
   if (!user) {
-    res.status(409).json({ meesaage: "User not found" });
+    res.status(409).json({ message: "User not found" });
     return;
   }
 

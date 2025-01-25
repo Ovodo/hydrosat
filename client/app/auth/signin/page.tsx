@@ -26,30 +26,30 @@ const Page = () => {
       toast.success("Sign-in Successful!");
       window.location.href = "/";
     } catch (error) {
-      setLoading(false);
       if (error instanceof Error) {
         toast.error(error.message);
       } else {
         toast.error("An unexpected error occurred");
       }
+      setLoading(false);
     }
   };
 
   return (
-    <div className='w-full sm:px-20 flex items-center justify-center sm:justify-start flex-1 h-full'>
+    <div className='w-full  max-w-screen   overflow-hidden gap-14 lg:gap-52 sm:px-20 flex flex-col-reverse lg:flex-row items-center justify-center lg:justify-start flex-1 h-full'>
       <form
         onSubmit={handleSubmit}
-        className='w-full flex flex-col gap-4 justify-center items-center md:w-[40%] h-[85%] bg-earth_yellow rounded-xl'
+        className='w-[90%]  flex flex-col sm:min-w-[450px] gap-4 lg:gap-6 justify-center items-center lg:w-[40%] h-max py-8 sm:py-10 lg:py-16 bg-earth_yellow rounded-md sm:rounded-xl'
       >
         <InputWithHeader
-          width='w-[75%] '
+          width='w-[85%] sm:w-[75%] '
           val={name}
           setValue={setName}
           title='Name'
           required={true}
         />
         <InputWithHeader
-          width='w-[75%] '
+          width='w-[85%] sm:w-[75%] '
           val={password}
           setValue={setPassword}
           title='Password'
@@ -63,7 +63,7 @@ const Page = () => {
           }}
           type='submit'
           disabled={!isFormComplete || loading}
-          className='text-sm disabled:cursor-not-allowed active:scale-95 hover:rounded-lg transition-all w-[75%] bg-moss_green h-[55px] text-cornsilk flex items-center justify-center'
+          className='text-base sm:rounded-none rounded-md disabled:cursor-not-allowed active:scale-95 sm:hover:rounded-lg transition-all w-[85%] sm:w-[75%] bg-moss_green h-[55px] text-cornsilk flex items-center justify-center'
         >
           {loading ? <PuffLoader size={24} color='white' /> : "Login"}
         </button>
@@ -74,9 +74,9 @@ const Page = () => {
           </Link>
         </p>
       </form>
-      <div className='flex flex-1 justify-end'>
+      <div className='flex lg:flex-1 h-max'>
         <motion.h2
-          className='text-5xl items-start w-max font-semibold leading-loose flex flex-col'
+          className='text-2xl sm:text-3xl sm:gap-2 md:gap-6 lg:text-5xl items-center h-max lg:items-start w-max font-semibold leading-loose flex flex-col'
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
@@ -98,7 +98,7 @@ const Page = () => {
             Login to Continue
           </motion.span>
           <motion.span
-            className='text-app_blue'
+            className='text-app_blue break-words'
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}

@@ -1,18 +1,7 @@
 /** @format */
-import { feedbackService, authService } from "../services";
+import { feedbackService } from "../services";
 import { Request, Response } from "express";
 import { errorHandlerWrapper } from "../utils";
-
-// Middleware to check if user is admin
-const assertAdmin = async (req: Request, res: Response, next: Function) => {
-  const user = await authService.getUser({ name: req.body.user.name });
-
-  if (!user || user.role !== "admin") {
-    res.status(403).json({ message: "Admin access required" });
-    return;
-  }
-  next();
-};
 
 const createFeedbackHandler = async (req: Request, res: Response) => {
   const { text, user } = req.body;
@@ -22,7 +11,6 @@ const createFeedbackHandler = async (req: Request, res: Response) => {
     return;
   }
 
-  // Basic validation
   if (!text || text.length > 1000) {
     res
       .status(400)
@@ -43,13 +31,14 @@ const createFeedbackHandler = async (req: Request, res: Response) => {
 };
 
 const getFeedbackHandler = async (req: Request, res: Response) => {
-  // Only admins can access this endpoint, already checked by assertAdmin middleware
+  const user = req.body.user;
+  if (!user || user.role !== "admin") {
+    res.status(403).json({ message: "Admin access required" });
+    return;
+  }
   const allFeedback = await feedbackService.getAllFeedback();
   res.status(200).json(allFeedback);
 };
 
 export const createFeedback = errorHandlerWrapper(createFeedbackHandler);
-export const getFeedback = [
-  assertAdmin,
-  errorHandlerWrapper(getFeedbackHandler),
-];
+export const getFeedback = errorHandlerWrapper(getFeedbackHandler);

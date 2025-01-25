@@ -8,9 +8,10 @@ import bcrypt from "bcryptjs";
 import { authService } from "../services";
 import { CreateUserRequestType } from "../types";
 import "dotenv/config";
+import { DataSourceOptions } from "typeorm";
 
-const options: any =
-  process.env.NODE_ENV !== "production"
+const options: DataSourceOptions =
+  process.env.NODE_ENV === "production"
     ? {
         type: "postgres",
         url: process.env.DATABASE_URL,
@@ -29,6 +30,7 @@ const options: any =
         database: process.env.DB_DATABASE,
         entities: [UserEntity, FeedbackEntity],
         entitySkipConstructor: true,
+        namingStrategy: new SnakeNamingStrategy(),
         logging: false,
         synchronize: true,
       };
@@ -36,15 +38,7 @@ const options: any =
 export const databaseSetup = async (): Promise<void> => {
   await createDatabase({
     ifNotExist: true,
-    options: {
-      type: "postgres",
-      url: process.env.DATABASE_URL,
-      synchronize: true,
-      ssl: true,
-      entities: [UserEntity, FeedbackEntity],
-      entitySkipConstructor: true,
-      namingStrategy: new SnakeNamingStrategy(),
-    },
+    options,
   });
 
   await AppDataSource.initialize();

@@ -27,7 +27,7 @@ export class FeedbackEntity extends CoreEntity {
   @Column({ name: "score", type: "float", nullable: true })
   score: number;
 
-  @ManyToOne(() => UserEntity, { onDelete: "SET NULL" })
+  @ManyToOne(() => UserEntity, { onDelete: "CASCADE" })
   @JoinColumn({ name: "user_uuid" })
   user: UserEntity;
 

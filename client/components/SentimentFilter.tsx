@@ -24,13 +24,13 @@ export default function SentimentFilter({
   };
 
   return (
-    <div className='flex items-center space-x-2'>
+    <div className='flex items-center  space-x-2'>
       <select
         value={filter}
         onInput={filterList}
-        className='px-2 py-1 border rounded'
+        className='px-2 py-1  dark:border-pakistan_green bg-gray-100 text-pakistan_green dark:bg-earth_yellow rounded'
       >
-        <option value='ALL'>All Sentiments</option>
+        <option value='ALL'>All</option>
         <option value='GOOD'>Good</option>
         <option value='NEUTRAL'>Neutral</option>
         <option value='BAD'>Bad</option>

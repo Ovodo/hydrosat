@@ -4,7 +4,7 @@
 
 :root {
   --background: #FEFAE0;
-  --foreground: #171717;
+  --foreground: #0a0a0a;
   --shadow-light: rgba(255, 255, 255, 0.5);
   --shadow-dark: rgba(0, 0, 0, 0.5);
 }
@@ -12,11 +12,12 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #FEFAE0;
     --shadow-light: rgba(255, 255, 255, 0.2);
     --shadow-dark: rgba(0, 0, 0, 0.7);
   }
 }
+
 
 body {
   color: var(--foreground);
@@ -159,5 +160,17 @@ body {
   }
   50% {
     transform: translateY(2px);
+  }
+}
+
+
+/* Media query for smaller screens (e.g., mobile) */
+@media (max-width: 768px) {
+  .key {
+    font-size: 1.5rem; /* Smaller font size for mobile */
+    line-height: 2rem; /* Adjusted line height */
+    letter-spacing: -0.02rem; /* Subtler letter spacing */
+    text-shadow: 0.5px 0.5px 1px var(--shadow-light), -0.5px -0.5px 1px var(--shadow-dark); /* Softer shadow */
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out; /* Faster transitions for mobile */
   }
 }

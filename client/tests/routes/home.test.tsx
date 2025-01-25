@@ -16,7 +16,7 @@ describe("Home Page", () => {
     // Mock user data
     (decrypt as jest.Mock).mockResolvedValue(
       JSON.stringify({
-        username: "testuser",
+        name: "testuser",
         isAdmin: false,
       })
     );
@@ -31,14 +31,30 @@ describe("Home Page", () => {
     // Mock admin user and feedback data
     (decrypt as jest.Mock).mockResolvedValue(
       JSON.stringify({
-        username: "admin",
+        name: "admin",
         isAdmin: true,
       })
     );
 
     const mockFeedbacks = [
-      { id: 1, text: "Great product", sentiment: "POSITIVE", score: 4 },
-      { id: 2, text: "Could be improved", sentiment: "NEUTRAL", score: 0 },
+      {
+        id: 1,
+        text: "Great product",
+        sentiment: "POSITIVE",
+        score: 4,
+        user: {
+          name: "ovd",
+        },
+      },
+      {
+        id: 2,
+        text: "Could be improved",
+        sentiment: "NEUTRAL",
+        score: 0,
+        user: {
+          name: "ovd",
+        },
+      },
     ];
 
     (getFeedbacks as jest.Mock).mockResolvedValue(mockFeedbacks);

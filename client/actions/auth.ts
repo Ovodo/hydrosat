@@ -2,6 +2,7 @@
 import { cookies } from "next/headers";
 import axios from "axios";
 import { redirect } from "next/navigation";
+import { backendUrl } from "@/lib/config";
 
 export const signUp = async ({
   name,
@@ -11,7 +12,7 @@ export const signUp = async ({
   password: string;
 }) => {
   try {
-    const res = await axios.post("http://localhost:8000/api/auth/signup", {
+    const res = await axios.post(`${backendUrl}/api/auth/signup`, {
       name,
       password,
     });
@@ -30,17 +31,15 @@ export const signIn = async ({
   password: string;
 }) => {
   try {
-    const res = await axios.post("http://localhost:8000/api/auth/signin", {
+    const res = await axios.post(`${backendUrl}/api/auth/signin`, {
       name,
       password,
     });
     const { token, ...rest } = res.data;
     (await cookies()).set("jwt", token);
     (await cookies()).set("user", JSON.stringify(rest));
-    console.log(rest);
     return rest;
   } catch (error: any) {
-    console.log(error);
     throw new Error(error.response.data.message);
   }
 };

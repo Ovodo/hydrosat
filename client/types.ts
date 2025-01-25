@@ -3,4 +3,5 @@ export type FeedbackType = {
   text: string;
   sentiment: string;
   score: number;
+  user: { name: string };
 };

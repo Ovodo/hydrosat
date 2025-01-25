@@ -34,7 +34,7 @@ const InputWithHeader = ({
           type={!password ? "text" : show ? "text" : "password"}
           value={val}
           onChange={(e) => setValue(e.target.value)}
-          className={`bg-cornsilk px-2 h-[58px] w-full text-pakistan_green text-lg self-center  focus:outline-none focus:ring-pakistan_green focus:ring-[2px]  placeholder:text-[#9A9A9A] border border-[#E5E5E5]`}
+          className={`bg-cornsilk rounded-md px-2 h-[58px] w-full text-pakistan_green text-lg self-center  focus:outline-none focus:ring-pakistan_green focus:ring-[2px]  placeholder:text-[#9A9A9A] border border-[#E5E5E5]`}
         />
         {password && (
           <button

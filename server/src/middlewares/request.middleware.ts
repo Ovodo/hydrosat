@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 
 import { Logger } from "../utils";
 import { validateIp } from "../utils/ipValidator";
-// import { clientInspector } from "valid-ip-scope";
+// import { clientInspector } from "valid-ip-scope"; -- Library is causing deployment to fail on vercel
 import "dotenv/config";
 
 const formatRequestData = (req: Request) => ({

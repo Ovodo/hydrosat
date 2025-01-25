@@ -1,5 +1,6 @@
 "use server";
 
+import { backendUrl } from "@/lib/config";
 import axios from "axios";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -12,7 +13,7 @@ export const createFeedback = async ({ text }: { text: string }) => {
   }
   try {
     const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/feedback`,
+      `${backendUrl}/api/feedback`,
       {
         text,
       },
@@ -37,7 +38,7 @@ export const getFeedbacks = async () => {
   }
   try {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/feedback`,
+      `${backendUrl}/api/feedback`,
 
       {
         headers: {

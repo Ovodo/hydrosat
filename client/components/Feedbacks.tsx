@@ -6,9 +6,9 @@ import { FeedbackType } from "@/types";
 const Feedbacks = ({ feedbacks }: { feedbacks: FeedbackType[] }) => {
   const [feedbackList, setFeedbackList] = useState(feedbacks);
   return (
-    <div className='flex flex-1 pb-4 flex-col'>
-      <div className='flex justify-between items-center'>
-        <h1 className='text-3xl font-bold text-pakistan_green text-center mb-4'>
+    <div className='flex flex-1 flex-col mb-1'>
+      <div className='flex justify-between  mb-4 items-center'>
+        <h1 className='text-xl lg:text-3xl font-bold text-pakistan_green dark:text-cornsilk tracking-wide text-center'>
           Feedback Dashboard
         </h1>
         <SentimentFilter
@@ -16,13 +16,23 @@ const Feedbacks = ({ feedbacks }: { feedbacks: FeedbackType[] }) => {
           feedbackList={feedbacks}
         />
       </div>
-      <div className='flex flex-col h-[70vh] space-y-4 overflow-y-scroll'>
+      <div className='flex flex-col h-[68vh] lg:h-[75vh]  space-y-4 overflow-y-scroll'>
         {feedbackList.map((item: FeedbackType) => (
-          <div key={item.uuid} className='bg-white p-4 rounded-lg shadow'>
-            <p className='mb-2'>{item.text}</p>
-            <div className='flex justify-between text-sm text-gray-500'>
-              <span>Sentiment: {item.sentiment}</span>
-              <span>Score: {item.score}</span>
+          <div
+            key={item.uuid}
+            className='bg-white dark:bg-moss_green/50 p-4 max-w-full rounded-lg shadow'
+          >
+            <p className='mb-2 max-w-full  break-words h-auto w-full'>
+              {item.text}
+            </p>
+            <div className='flex justify-between text-sm '>
+              <span className='w-[200px] text-center'>
+                Sentiment: {item.sentiment}
+              </span>
+              <span className='w-[200px] text-center'>
+                user: {item.user.name}
+              </span>
+              <span className='w-[200px] text-center'>Score: {item.score}</span>
             </div>
           </div>
         ))}
