@@ -8,12 +8,12 @@ export const analyzeSentiment = (text: string): SentimentAnalysisResult => {
 
   let sentimentCategory: "GOOD" | "BAD" | "NEUTRAL";
 
-  if (result.score > 2) {
-    sentimentCategory = "GOOD";
-  } else if (result.score < 2) {
-    sentimentCategory = "BAD";
-  } else if (result.score == 0) {
+  if (result.score === 0) {
     sentimentCategory = "NEUTRAL";
+  } else if (result.score <= 2) {
+    sentimentCategory = "BAD";
+  } else if (result.score > 2) {
+    sentimentCategory = "GOOD";
   }
 
   return {

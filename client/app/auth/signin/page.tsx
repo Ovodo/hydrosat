@@ -21,10 +21,15 @@ const Page = () => {
 
     setLoading(true); // Start loading
     try {
-      await signIn({ name, password });
-      setLoading(false);
-      toast.success("Sign-in Successful!");
-      window.location.href = "/";
+      const res = await signIn({ name, password });
+      if (res.ok) {
+        toast.success("Sign-in Successful!");
+        window.location.href = "/";
+        setLoading(false);
+      } else {
+        setLoading(false);
+        toast.error(res.message ?? "An unexpected error occurred");
+      }
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);

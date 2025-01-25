@@ -11,7 +11,7 @@ const signUpHandler = async (req: Request, res: Response) => {
   const { name, password, role } = req.body;
 
   if (!name || !password) {
-    res.status(400).json("Incomplete Credentials");
+    res.status(400).json({ ok: false, message: "Incomplete Credentials" });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -23,9 +23,9 @@ const signUpHandler = async (req: Request, res: Response) => {
   });
 
   if (newUser) {
-    res.status(201).json(newUser);
+    res.status(201).json({ ok: true, data: newUser });
   } else {
-    res.status(409).json({ message: "User already exists" });
+    res.status(409).json({ ok: false, message: "User already exists" });
   }
 };
 
@@ -35,23 +35,24 @@ const signInHandler = async (req: Request, res: Response) => {
   const user = await authService.getUser({ name });
 
   if (!user) {
-    res.status(409).json({ message: "User not found" });
+    res.status(409).json({ ok: false, message: "User not found" });
     return;
   }
 
   if (!(await bcrypt.compare(password, user.hashedPassword))) {
-    res.status(401).json({ message: "Invalid credentials" });
+    res.status(401).json({ ok: false, message: "Invalid credentials" });
     return;
   }
 
-  const token = jwt.sign({ username: user.name }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ name: user.name }, process.env.JWT_SECRET, {
     expiresIn: "24h",
   });
 
   res.status(200).json({
+    ok: true,
     token: token,
     isAdmin: user.role === "admin",
-    username: user.name,
+    name: user.name,
   });
 };
 

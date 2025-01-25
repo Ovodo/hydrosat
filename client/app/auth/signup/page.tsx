@@ -28,14 +28,20 @@ const Page = () => {
 
     if (password !== confirmPassword) {
       setPasswordError("Passwords do not match.");
+      setLoading(false);
       return;
     }
     try {
       const res = await signUp({ name, password });
-      console.log(res);
-      setLoading(false);
-      toast.success("Sign-up Successful!");
-      router.push("/signin");
+
+      if (res.ok) {
+        setLoading(false);
+        toast.success("Successful! Sign in now!");
+        router.push("/signin");
+      } else {
+        setLoading(false);
+        toast.error(res.message);
+      }
     } catch (error) {
       setLoading(false);
       if (error instanceof Error) {

@@ -13,6 +13,7 @@ export const errorHandlerMiddleware = (
 
   res.status(500).json({
     type: "Internal Server Error!",
+    ok: false,
     message: err.message,
     code: err.code,
   });

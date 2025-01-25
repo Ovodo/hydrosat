@@ -20,7 +20,7 @@ export const authMiddleware = async (
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET) as any;
 
-    const user = await authService.getUser({ name: decoded.username });
+    const user = await authService.getUser({ name: decoded.name });
 
     if (!user) throw "User Not Found!";
     req.body.user = user;

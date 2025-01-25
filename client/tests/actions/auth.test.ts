@@ -18,7 +18,7 @@ describe("Auth Server Actions", () => {
     it("should successfully register a user", async () => {
       // Mock axios post response
       (axios.post as jest.Mock).mockResolvedValue({
-        data: { id: "1", name: "testuser" },
+        data: { ok: true, data: { id: "1", name: "testuser" } },
       });
 
       const result = await signUp({
@@ -30,21 +30,21 @@ describe("Auth Server Actions", () => {
         "http://localhost:8000/api/auth/signup",
         { name: "testuser", password: "password123" }
       );
-      expect(result).toEqual({ id: "1", name: "testuser" });
+      expect(result).toEqual({ ok: true, data: { id: "1", name: "testuser" } });
     });
 
     it("should throw an error for signup failure", async () => {
       // Mock axios post error
-      (axios.post as jest.Mock).mockRejectedValue({
-        response: { data: { message: "Registration failed" } },
+      (axios.post as jest.Mock).mockResolvedValue({
+        data: { ok: false, message: "Registration failed" },
       });
 
-      await expect(
-        signUp({
+      expect(
+        await signUp({
           name: "testuser",
           password: "password123",
         })
-      ).rejects.toThrow("Registration failed");
+      ).toEqual({ ok: false, message: "Registration failed" });
     });
   });
 
@@ -54,6 +54,7 @@ describe("Auth Server Actions", () => {
       const mockSet = jest.fn();
       (axios.post as jest.Mock).mockResolvedValue({
         data: {
+          ok: true,
           token: "test-token",
           name: "testuser",
           isAdmin: false,
@@ -76,11 +77,13 @@ describe("Auth Server Actions", () => {
       expect(mockSet).toHaveBeenCalledWith(
         "user",
         JSON.stringify({
+          ok: true,
           name: "testuser",
           isAdmin: false,
         })
       );
       expect(result).toEqual({
+        ok: true,
         name: "testuser",
         isAdmin: false,
       });
@@ -88,16 +91,16 @@ describe("Auth Server Actions", () => {
 
     it("should throw an error for signin failure", async () => {
       // Mock axios post error
-      (axios.post as jest.Mock).mockRejectedValue({
-        response: { data: { message: "Invalid credentials" } },
+      (axios.post as jest.Mock).mockResolvedValue({
+        data: { ok: false, message: "Invalid credentials" },
       });
 
-      await expect(
-        signIn({
+      expect(
+        await signIn({
           name: "testuser",
           password: "wrongpassword",
         })
-      ).rejects.toThrow("Invalid credentials");
+      ).toEqual({ ok: false, message: "Invalid credentials" });
     });
   });
 

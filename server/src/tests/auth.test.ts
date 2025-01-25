@@ -26,8 +26,8 @@ describe("Authentication Endpoints", () => {
       });
 
       expect(response.status).toBe(201);
-      expect(response.body).toHaveProperty("uuid");
-      expect(response.body.name).toBe("newuser");
+      expect(response.body.data).toHaveProperty("uuid");
+      expect(response.body.data.name).toBe("newuser");
     });
 
     it("should reject signup with existing username", async () => {
@@ -78,7 +78,7 @@ describe("Authentication Endpoints", () => {
 
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty("token");
-      expect(response.body).toHaveProperty("username", "testuser");
+      expect(response.body).toHaveProperty("name", "testuser");
     });
 
     it("should reject signin with incorrect password", async () => {

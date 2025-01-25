@@ -19,7 +19,7 @@ export const signUp = async ({
 
     return res.data;
   } catch (error: any) {
-    throw new Error(error.response.data.message);
+    return error.response.data;
   }
 };
 
@@ -40,7 +40,7 @@ export const signIn = async ({
     (await cookies()).set("user", JSON.stringify(rest));
     return rest;
   } catch (error: any) {
-    throw new Error(error.response.data.message);
+    return error.response.data;
   }
 };
 

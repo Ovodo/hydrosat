@@ -34,17 +34,13 @@ describe("Feedback Endpoints", () => {
     await userRepository.save(regularUser);
 
     // Generate tokens
-    adminToken = jwt.sign(
-      { username: adminUser.name },
-      process.env.JWT_SECRET,
-      { expiresIn: "24h" }
-    );
+    adminToken = jwt.sign({ name: adminUser.name }, process.env.JWT_SECRET, {
+      expiresIn: "24h",
+    });
 
-    userToken = jwt.sign(
-      { username: regularUser.name },
-      process.env.JWT_SECRET,
-      { expiresIn: "24h" }
-    );
+    userToken = jwt.sign({ name: regularUser.name }, process.env.JWT_SECRET, {
+      expiresIn: "24h",
+    });
   });
 
   afterAll(async () => {

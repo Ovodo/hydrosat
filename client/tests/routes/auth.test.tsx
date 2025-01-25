@@ -37,7 +37,7 @@ describe("SignIn Page", () => {
 
   test("handles successful sign in", async () => {
     // Mock successful sign in
-    (signIn as jest.Mock).mockResolvedValue({ username: "testuser" });
+    (signIn as jest.Mock).mockResolvedValue({ ok: true, name: "testuser" });
 
     render(<SignInPage />);
 

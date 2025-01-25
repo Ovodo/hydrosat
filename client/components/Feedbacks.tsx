@@ -26,7 +26,7 @@ const Feedbacks = ({ feedbacks }: { feedbacks: FeedbackType[] }) => {
               {item.text}
             </p>
             <div className='flex justify-between text-sm '>
-              <span className='w-[200px] text-center'>
+              <span className='w-[200px]  text-start'>
                 Sentiment: {item.sentiment}
               </span>
               <span className='w-[200px] text-center'>
