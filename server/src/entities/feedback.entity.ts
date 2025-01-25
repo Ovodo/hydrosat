@@ -19,7 +19,7 @@ export class FeedbackEntity extends CoreEntity {
 
   @Column({
     name: "sentiment",
-    type: "text",
+    type: "varchar",
     enum: ["GOOD", "BAD", "NEUTRAL"],
   })
   sentiment: string;

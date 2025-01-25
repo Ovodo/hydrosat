@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import Web3, { Web3PromiEvent } from "web3";
+import Web3 from "web3";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 

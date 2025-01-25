@@ -8,12 +8,12 @@ export class UserEntity extends CoreEntity {
   @PrimaryGeneratedColumn("uuid")
   uuid: string;
 
-  @Column({ name: "name" })
+  @Column({ type: "varchar", name: "name" })
   name: string;
 
   @Column({ name: "hashed_password" })
   hashedPassword: string;
 
-  @Column({ type: "text", enum: ["user", "admin"], default: "user" })
+  @Column({ type: "varchar", enum: ["user", "admin"], default: "user" })
   role: string;
 }
